@@ -13,24 +13,19 @@ use Illuminate\Support\Facades\Request;*/
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Http\Controller\CustomAuthController;
 Route::get('/', function () {
     return view('signup');
 });
 
 //Resource::
-Route::get('/home', function () {
+Route::get('/home',/* function () {
     return view('home');
-});
-Route::get('/Login', function () {
-    return view('Login');
-});
-Route::get('/signup', function () {
-    return view('Signup');
-});
+}*/[App\Http\Controllers\CustomAuthController::class,'home']);
+Route::get('/login', [App\Http\Controllers\CustomAuthController::class,'login']);
+Route::get('/registration',[App\Http\Controllers\CustomAuthController::class,'registration-user']);//specifies?
 
-Route::get('/shoppingList', function () {
-    return view('shoppingList');
-});
+
 Route::get('/create_list', function () {
     return view('CreateList');
 });
@@ -58,7 +53,9 @@ Route::get('/edit',function()
 
 
 //step 2:adding a function
-Route::post('/create-account','App\Http\Controllers\DemoController@addAccount');
+//Route::post('/create-account','App\Http\Controllers\DemoController@addAccount');
+Route::post('custom-login',[App\Http\Controllers\CustomAuthController::class,'customLogin'])->name('login.custom');
+//Route::middleware('auth:api')->get()
 //step3:read all accounts
 Route::get('/list','App\Http\Controllers\DemoController@readAll');
 //route for addin list
@@ -66,11 +63,13 @@ Route::post('/craeteShopList','App\Http\Controllers\ShoppingListController@addLi
 //route to read user data
 Route::get('/showuser/{id}','App\Http\Controllers\DemoController@readUser');
 //check user login
-Route::post('/checkAcc','App\Http\Controllers\DemoController@checkAccount');
+//Route::post('/checkAcc','App\Http\Controllers\DemoController@checkAccount');
+Route::post('custom-registration', [App\Http\Controllers\CustomAuthController::class, 'customRegistration'])->name('register.custom');
 Route::get('/home','App\Http\Controllers\DemoController@protect');
-Route::get('/profile','App\Http\Controllers\DemoController@profile');
+Route::get('/profile','App\Http\Controllers\CustomAuthController@profile');
 Route::get('/edit_acc/{id}','App\Http\Controllers\DemoController@editAcc');
-Route::get('/logout','App\Http\Controllers\DemoController@logout');
+//Route::get('/logout','App\Http\Controllers\DemoController@logout');
+Route::get('signout',[App\Http\Controllers\CustomAuthController::class,'signOut'])->name('signout');
 //delete user account
 Route::get('/delete/{id}','App\Http\Controllers\DemoController@deleteAcc');
 //update user account
@@ -89,7 +88,8 @@ Route::get('/edit_list/{id}','App\Http\Controllers\ShoppingListController@editli
 Route::post('/updateShopList','App\Http\Controllers\ShoppingListController@updateShopList');
 //items
 //creation
-Route::post('/createItem','App\Http\Controllers\ItemsController@addItem');
+Route::get('/create_items/{id}','App\Http\Controllers\ItemsController@itemCreatePage');
+Route::post('/createItems','App\Http\Controllers\ItemsController@addItem');
 //show items
 Route::get('/items/{id}','App\Http\Controllers\ItemsController@getItems');
 //delete item

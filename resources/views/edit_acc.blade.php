@@ -31,24 +31,23 @@
 <div class="card">
 
   <div class="container">
-  <?php foreach($u_data as $key){ ?>
-  <h1><b>{{$key->id}}: {{$key->email}}</b></h1><br>
+
+  <h1><b>{{Auth::user()->id}}:{{Auth::user()->name}} <br>
+  Email: {{Auth::user()->email}}</b></h1><br>
 
   <form action='{{url('updateAccount')}}' method='post'> {{ csrf_field()}}
 
         <div class="input-group">
-        <input type="hidden" name="uid" value="{{$key->id}}">
-  		<label>Enter E-mail</label>
-  		<input type="text" name="n_email"  >
+        <input type="hidden" name="uid" value="{{Auth::user()->id}}">
+        <label>Enter name</label><br>
+        <input type="text" name="n_name" ><br>
+  		<label>Enter E-mail</label><br>
+  		<input type="text" name="n_email"><br>
+        <label>Enter password</label>><br>
+  		<input type="password" name="n_pass">><br>
+          <input class="w3-button w3-blue w3-padding-large w3-large w3-margin-top" type="submit"><br>
   	</div>
-      <div class="input-group">
-  		<label>Enter password</label>
-  		<input type="password" name="n_pass">
-  	</div>
-      <?php } ?>
-      <div class="input-group">
-      <input class="w3-button w3-blue w3-padding-large w3-large w3-margin-top" type="submit"><br>
-  </div>
+
 </div>
 
 </body>

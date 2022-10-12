@@ -32,14 +32,14 @@
         <div class="container">
         <?php foreach($i_data as $key){
         ?>
-     <form action='{{url('edit_item')}}' method='post'> {{ csrf_field()}}
-            <input type="hidden" name="uid" value="{{$key->id}}">
+     <form action='{{url('updateItem')}}' method='post'> {{ csrf_field()}}
+            <input type="text" name="uid" value="{{$key->id}}"><br>
             <label for="name">Name</label><br>
             <input type="text" name="i_name" value="{{$key->name}}"><br>
             <label for="desc">Quantity Description</label><br>
-            <input type="text" name="u_desc" value="{{$key->QuantityDescription}}><br>
-            <input type="hidden" id="checked" name="checked" value="0" default="0">
-            <input type="hidden" id="checked" name="shop_id" value="{{$key->shopping_list_id}}" default="0">
+            <input type="text" name="u_desc" value="{{$key->QuantityDescription}}"><br>
+            <input type="checkbox" name="checked" value="{{$key->Checked}}" default="0"><br>
+            <input type="hidden"  name="shop_id" value="{{$key->shopping_list_id}}" >
 
             <?php } ?>
             <input class="w3-button w3-blue w3-padding-large w3-large w3-margin-top" type="submit"><br>

@@ -41,12 +41,12 @@
 <div class="card">
 
   <div class="container">
-  <h1><b>{{$id}}: {{$email}}</b></h1><br>
+  <h1><b>{{Auth::user()->id}}: {{Auth::user()->email}}</b></h1><br>
   <button class="w3-button w3-green w3-padding-large w3-large w3-margin-top"><a href="edit_acc/{{$id}}">EDIT</a></button>
   <button class="w3-button w3-red w3-padding-large w3-large w3-margin-top"><a href="delete/{{$id}}">DELETE</button>
   </div>
 </div>
-<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="{{url('/logout')}}">Logout
+<button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="signout">Logout
 
 </a></button>
 

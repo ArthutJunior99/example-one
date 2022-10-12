@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('shopping_lists', function (Blueprint $table) {
             $table->id();
-            $table->string("title");
-            $table->string("description");
-            $table->unsignedBigInteger('account_id');
-            $table->foreign("account_id")->references("id")->on("accounts")->onDelete("cascade");
+            $table->string('title');
+            $table->string('description');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 
 class DemoController extends Controller
@@ -44,7 +46,7 @@ class DemoController extends Controller
         $email=$req->in_email;
         $pass=$req->in_pass;
 
-        $session= Account::where('email',$email)->where('password',$pass)->get();
+       /* $session= Account::where('email',$email)->where('password',$pass)->get();
         if(count($session)>0)
         {
             $req->session()->put('id',$session[0]->id);
@@ -55,7 +57,7 @@ class DemoController extends Controller
         else
         {
             return redirect('/Login')->with('msg','Email or Password incorrect');
-        }
+        }*/
     }
 
     public function protect(Request $r)
@@ -72,8 +74,9 @@ class DemoController extends Controller
             return view('home')->with($capsule);
         }
     }
-    public function profile(Request $req)
+    /*public function profile(Request $req)
     {
+
         if($req->session()->get('account_id')== " ")
         {
             return redirect('/Login');
@@ -85,10 +88,13 @@ class DemoController extends Controller
             $capsule = array('email'=> $user,'id'=>$id);
             return view('profile')->with($capsule);
         }
-    }
+
+    } */
     public function shoppingListdata(Request $req)
     {
+
         //$session= shoppingList::where('title',$title)->where('description',$desc)->get();
+        /*
         if($req->session()->get('account_id')== " ")
         {
             return redirect('/Login');
@@ -100,6 +106,7 @@ class DemoController extends Controller
             $capsule = array('email'=> $user,'id'=>$id);
             return view('shoppingList')->with($capsule);
         }
+        */
     }
     public function editAcc(Request $r)
     {
@@ -113,14 +120,16 @@ class DemoController extends Controller
     }
     public function  logout(Request $req)
     {
+        /*
         $req->session()->forget('id');
-        $req->session()->forget('email');
-        return redirect('/Login');
+        $req->session()->forget('email');*/
+        return redirect('/login');
 
     }
     //
     public function displayUserShoppingList(Request $req)
     {
+        /*
         if($req->session()->get('account_id')== " ")
         {
             return redirect('/Login');
@@ -134,27 +143,31 @@ class DemoController extends Controller
 
         return $shoppingLists;
         }
+        */
     }
     public function updateUserAccount(Request $r)
     {
         $upadte_id=$r->uid;
+        $name=$r->n_name;
         $email=$r->n_email;
-        $pass=$r->n_pass;
+        $pass=$r->Hash::make(n_pass);
 
 
-        $update=Account::find($upadte_id);
+        $user = Auth::user()->id;
+        $update=User::find($upadte_id);
+        $update->name=$name;
         $update->email=$email;
         $update->password=$pass;
         $updated=$update->save();
         if($updated)
         {
-            return redirect('/Login')->with('msg','Data updated');
+            return redirect('/login')->with('msg','Data updated');
         }
     }
     public function deleteAcc(Request $r)
     {
         $del_id=$r->id;
-        $delete_data=Account::find($del_id);
+        $delete_data=User::find($del_id);
 
         $deleted=$delete_data->delete();
 

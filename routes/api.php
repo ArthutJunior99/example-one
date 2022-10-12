@@ -27,12 +27,8 @@ return view('signup');
 Route::get('/home', function () {
 return view('home');
 });
-Route::get('/Login', function () {
-    return view('Login');
-});
-Route::get('/signup', function () {
-    return view('Signup');
-});
+Route::get('/apiLogin', [App\Http\Controllers\CustomAuthController::class,'apiLogin']);
+Route::get('/apiRegistration',[App\Http\Controllers\CustomAuthController::class,'apiRegistration']);//specifies?
 
 Route::get('/shoppingList', function () {
     return view('shoppingList');
@@ -59,7 +55,10 @@ Route::get('/edit',function()
 {
     return view('edit_item');
 });
-//step 2:adding a function
+//step 2:adding a api login
+Route::post('api-login',[App\Http\Controllers\CustomAuthController::class,'apiLogin'])->name('login.custom');
+//api registration
+Route::post('api-registration', [App\Http\Controllers\CustomAuthController::class, 'apiRegistration'])->name('register.custom');
 Route::post('/create-account','App\Http\Controllers\DemoController@addAccount');
 //step3:read all accounts
 Route::get('/list','App\Http\Controllers\DemoController@readAll');

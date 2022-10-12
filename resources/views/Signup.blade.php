@@ -79,7 +79,7 @@
         <h2>Signup</h2>
         <h2>Enter personal details</h2>
             </div>
-            @if( session()->get('msg'))
+           <!-- @if( session()->get('msg'))
             <div class="alert alert-succes alert-dismissable fade show" role="alert">
                 {{ session()->get('msg')}}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -87,21 +87,36 @@
                 </button>
             </div>
             @endif
-        <form action='{{url('create-account')}}' method='post'> {{ csrf_field()}}
-        <div class="input-group">
-  		<label>Enter E-mail</label>
-  		<input type="text" name="email" id="email" >
-  	</div>
-      <div class="input-group">
-  		<label>Enter password</label>
-  		<input type="password" name="pass" id="pass" >
-  	</div>
-      <div class="input-group">
-  		<button type="submit" class="btn" name="login_user">signup</button>
-  	</div>
+        <form action='{{url('custom-registration')}}' method='post'> {{ csrf_field()}}-->
+        <form action="{{ route('register.custom') }}" method="POST">
+            @csrf
+            <div class="form-group mb-3">
+                <input type="text" placeholder="Name" id="name" class="form-control" name="name"
+                    required autofocus>
+                @if ($errors->has('name'))
+                <span class="text-danger">{{ $errors->first('name') }}</span>
+                @endif
+            </div>
+            <div class="form-group mb-3">
+                <input type="text" placeholder="Email" id="email_address" class="form-control"
+                    name="email" required autofocus>
+                @if ($errors->has('email'))
+                <span class="text-danger">{{ $errors->first('email') }}</span>
+                @endif
+            </div>
+            <div class="form-group mb-3">
+                <input type="password" placeholder="Password" id="password" class="form-control"
+                    name="password" required>
+                @if ($errors->has('password'))
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+                @endif
+            </div>
             <label>
-            <label>Already have an account?<a href="Login">login here</a></label><br>
-            </label><br>
+                <label>Already have an account?<a href="login">login here</a></label><br>
+            </label>
+            <div class="d-grid mx-auto">
+                <button type="submit" class="btn btn-dark btn-block">Sign up</button>
+            </div>
         </form>
 
         </form>

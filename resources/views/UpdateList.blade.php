@@ -34,7 +34,7 @@
         <?php foreach($e_data as $key){
         ?>
             <input type="hidden" name="uid" value="{{$key->id}}">
-            <input type="hidden" name="uaccount_id" value="{{$key->account_id}}">
+            <input type="hidden" name="uaccount_id" value="{{$key->user_id}}">
             <label for="name">Name</label><br>
             <input type="text" name="uname" value="{{$key->title}}"><br>
             <label for="desc">Description</label><br>

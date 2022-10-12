@@ -6,14 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\ShoppingList;
 use App\Models\Items;
+use Illuminate\Support\Facades\Auth;
 
 class ItemsController extends Controller
 {
     function addItem(Request $request)
     {
 
-        $listId = $request->lid;
+        $listId = $request->get('lid');
         $item = new Items();
+        $shoppingLists = ShoppingList::find($listId);
         $item->name=$request->get('i_name');
         $item->QuantityDescription=$request->get('q_desc');
         $item->Checked=$request->get('checked');
@@ -21,6 +23,14 @@ class ItemsController extends Controller
         $item->save();
         return redirect('/shoppingList')->with('msg','Data updated');
 
+    }
+
+    function itemCreatePage(Request $request)
+    {
+        $listId = $request->id;
+        $l_data = ShoppingList::where('id',$listId)->get();
+        $capsule = array('data' => $l_data);
+        return view('createItems')->with($capsule);
     }
     function getItems(Request $r)
     {
@@ -36,7 +46,7 @@ class ItemsController extends Controller
         //search for id
         $edt_data=Items::where('id',$edt_id)->get();
         $capsule = array('i_data'=>$edt_data);
-        return view('/edit')->with($capsule);
+        return view('edit_item')->with($capsule);
 
     }
 
@@ -51,7 +61,7 @@ class ItemsController extends Controller
         $update=Items::find($upadte_id);
         $update->name=$name;
         $update->QuantityDescription=$QuantityDescription;
-        $update->Checked=$checked;
+        $update->Checked=1;
         $update->shopping_list_id=$shopId;
         $updated=$update->save();
         if($updated)

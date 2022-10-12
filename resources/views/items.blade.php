@@ -64,7 +64,13 @@ table, th, td {
 <header class="w3-container w3-red w3-center" style="padding:128px 16px">
 
   <h1 class="w3-margin w3-jumbo">Items</h1>
-  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="/create_items">Create new item</a></button>
+  <?php
+    foreach($data as $key){
+?>
+  <input type="hidden" name="lid" value="{{$key->shopping_list_id}}">
+  <?php }?>
+    <input type="hidden" name="sid" />
+  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="/create_items/{{$key->shopping_list_id}}">Create new item</a></button>
 
 </header>
 
@@ -72,8 +78,6 @@ table, th, td {
 <div class="w3-row-padding w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-twothird">
-      <h1>Items</h1>
-
 </div>
 </div>
 </div>
@@ -99,21 +103,27 @@ table, th, td {
 
                 ?>
 
+
                     <tr>
+
                         <td>{{$s1++}}</td>
                         <td>{{$key->id}}</td>
                         <td>{{$key->name}}</td>
                         <td>{{$key->QuantityDescription}}</td>
                         <td><input type="checkbox"  name="checked" value={{$key->checked}}></td>
                         <td text-align:right>
-  <button class="w3-button w3-green w3-padding-large w3-large w3-margin-top"><a href="/edit_item/{{$key->id}}">EDIT</a></button>
-  <button class="w3-button w3-red w3-padding-large w3-large w3-margin-top"><a href="/itemdelete/{{$key->id}}">DELETE</button></td>
-                    </tr>
-                    <?php }?>
+                    <button class="w3-button w3-green w3-padding-large w3-large w3-margin-top"><a href="/edit_item/{{$key->id}}">EDIT</a></button>
+                    <button class="w3-button w3-red w3-padding-large w3-large w3-margin-top"><a href="/itemdelete/{{$key->id}}">DELETE</button></td>
+                    </tr><?php }?>
+
+
                 </tbody>
             </table>
+
     </div>
 </div>
+
+
 
 </body>
 </html>

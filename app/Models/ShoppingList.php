@@ -10,13 +10,17 @@ class ShoppingList extends Model
     public $timestamps = false;
     use HasFactory;
 
-    public function account()
-    {
-        return $this->belongsTo(Account::class);
-    }
+
     public function items()
     {
         return $this->hasMany(Items::class);
     }
-
+    public function users()
+    {
+        return $this->belongsTo(Users::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

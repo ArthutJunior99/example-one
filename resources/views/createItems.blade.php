@@ -30,16 +30,17 @@
 </header>
     <div class="card">
         <div class="container">
-     <form action='{{url('createItem')}}' method='post'> {{ csrf_field()}}
-
+     <form action='{{url('createItems')}}' method='post'> {{ csrf_field()}}
+        <?php foreach($data as $key){
+            ?>
             <label for="name">Name</label><br>
             <input type="text" name="i_name" ><br>
             <label for="desc">Quantity Description</label><br>
             <input type="text" name="q_desc" ><br>
             <input type="hidden" id="checked" name="checked" value="0" default="0">
-            <input type="hidden" name="lid" value="1">
+            <input type="hidden" name="lid" value="{{$key->id}}">
+        <?php }?>
             <input class="w3-button w3-blue w3-padding-large w3-large w3-margin-top" type="submit"><br>
-
         </form>
 
     </div>
