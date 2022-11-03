@@ -13,7 +13,7 @@ class ShoppingList extends Model
 
     public function items()
     {
-        return $this->hasMany(Items::class);
+        return $this->hasMany(Items::class,'shopping_list_id');
     }
     public function users()
     {

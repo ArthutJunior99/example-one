@@ -27,11 +27,7 @@ class ShoppingListController extends Controller
 
     public function fetch(Request $req)
     {
-        //$userId = $req->session()->get('id');
-      /*  $account = Account::find($userId);
-        $shoppingLists = $account->shoppingLists;
-        $capsule = array('data'=>$shoppingLists);
-        */
+
         $user=Auth::user();
         $account = User::find($user->id);
         $shoppingLists = $account->shoppinglists;

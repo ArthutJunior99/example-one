@@ -18,9 +18,15 @@ class ItemsController extends Controller
         $shoppingLists = ShoppingList::find($listId);
         $item->name=$request->get('i_name');
         $item->QuantityDescription=$request->get('q_desc');
-        $item->Checked=$request->get('checked');
+        $item->Checked=$request->input('checked',1); //$request->get('checked');
         $item->shopping_list_id=$listId;
         $item->save();
+        return redirect('/shoppingList')->with('msg','Data updated');
+
+    }
+    function complete(Request $request)
+    {
+        Items::query()->update(['checked'=> 1]);
         return redirect('/shoppingList')->with('msg','Data updated');
 
     }
@@ -35,10 +41,22 @@ class ItemsController extends Controller
     function getItems(Request $r)
     {
         $listId = $r->id;
-        $shoppingLists = ShoppingList::find($listId);
+        if(items::where('shopping_list_id',$listId)->exists()){
+        //$shoppingLists = ShoppingList::where('id',$listId)->get();
+        $shoppingLists = ShoppingList::where('id',$listId)->first();
         $itemsdata = $shoppingLists->items;
         $capsule = array('data'=>$itemsdata);
-        return view('items')->with($capsule);
+         return view('items')->with($capsule);
+        }
+        else
+        {
+            $listId = $r->id;
+            $l_data = ShoppingList::where('id',$listId)->get();
+            $capsule = array('data' => $l_data);
+            return view('createItems')->with($capsule);
+
+
+        }
     }
     function editItem(Request $r)
     {
@@ -55,7 +73,12 @@ class ItemsController extends Controller
         $upadte_id=$r->uid;
         $name=$r->i_name;
         $QuantityDescription=$r->u_desc;
-        $checked=$r->checked;
+        $checked=$r->input('checked',1);//checked;//$request->input('checked',1);
+
+        /*if($checked == 1)
+        {
+            print ("<input type=checkbox  name=checked[] value={{$key->checked}} checked></td>");
+        }**/
         $shopId=$r->shop_id;
 
         $update=Items::find($upadte_id);

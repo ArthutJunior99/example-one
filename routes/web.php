@@ -98,5 +98,7 @@ Route::get('/itemdelete/{id}','App\Http\Controllers\ItemsController@deleteItem')
 Route::get('/edit_item/{id}','App\Http\Controllers\ItemsController@editItem');
 Route::post('/updateItem','App\Http\Controllers\ItemsController@update');
     Route::post('createItem','App\Http\Controllers\ItemsController@addItem');
+    //
+
 
 ?>

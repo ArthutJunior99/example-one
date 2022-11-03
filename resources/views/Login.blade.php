@@ -122,10 +122,10 @@
                                 @endif
                             </div>
                             <div class="form-group mb-3">
-                                <div class="checkbox">
+                            <br>
                                     <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
+                                        Don't have an account? <a href="/">Signup</a>
+                                    </label><br>
                                 </div>
                             </div>
                             <div class="d-grid mx-auto">

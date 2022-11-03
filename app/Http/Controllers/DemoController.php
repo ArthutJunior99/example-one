@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\User;
+use Hash;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -74,46 +75,18 @@ class DemoController extends Controller
             return view('home')->with($capsule);
         }
     }
-    /*public function profile(Request $req)
-    {
 
-        if($req->session()->get('account_id')== " ")
-        {
-            return redirect('/Login');
-        }
-        else
-        {
-            $user = $req->session()->get('email');
-            $id = $req->session()->get('id');
-            $capsule = array('email'=> $user,'id'=>$id);
-            return view('profile')->with($capsule);
-        }
-
-    } */
     public function shoppingListdata(Request $req)
     {
 
-        //$session= shoppingList::where('title',$title)->where('description',$desc)->get();
-        /*
-        if($req->session()->get('account_id')== " ")
-        {
-            return redirect('/Login');
-        }
-        else
-        {
-            $user = $req->session()->get('email');
-            $id = $req->session()->get('id');
-            $capsule = array('email'=> $user,'id'=>$id);
-            return view('shoppingList')->with($capsule);
-        }
-        */
+
     }
     public function editAcc(Request $r)
     {
 
-        $edt_id=$r->id;
+        $edt_id= Auth::user()->id;
         //search for id
-        $edt_data=Account::where('id',$edt_id)->get();
+        $edt_data=User::where('id',$edt_id)->get();
         $capsule = array('u_data'=>$edt_data);
 
         return view('edit_acc')->with($capsule);
@@ -150,7 +123,7 @@ class DemoController extends Controller
         $upadte_id=$r->uid;
         $name=$r->n_name;
         $email=$r->n_email;
-        $pass=$r->Hash::make(n_pass);
+        $pass= Hash::make($r->n_pass);
 
 
         $user = Auth::user()->id;
@@ -167,13 +140,14 @@ class DemoController extends Controller
     public function deleteAcc(Request $r)
     {
         $del_id=$r->id;
-        $delete_data=User::find($del_id);
+        $user = Auth::user()->id;
+        $delete_data=User::find($user);
 
         $deleted=$delete_data->delete();
 
         if($deleted)
         {
-            return redirect('/Login')->with('msg','Data has been deleted');
+            return redirect('/login')->with('msg','Data has been deleted');
         }
     }
 

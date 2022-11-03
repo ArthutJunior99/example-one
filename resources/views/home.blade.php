@@ -30,15 +30,6 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   <h1 class="w3-margin w3-jumbo">Welcome to your shopping page  {{Auth::user()->name}}!!!</h1>
   <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top"><a href="create_list">Create list</a></button>
 </header>
-
-<!-- First Grid -->
-<div class="w3-row-padding w3-padding-64 w3-container">
-  <div class="w3-content">
-    <div class="w3-twothird">
-      <h1>Recent Lists</h1>
-    </div>
-  </div>
-</div>
 </body>
 </html>
 

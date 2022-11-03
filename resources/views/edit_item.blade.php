@@ -33,7 +33,7 @@
         <?php foreach($i_data as $key){
         ?>
      <form action='{{url('updateItem')}}' method='post'> {{ csrf_field()}}
-            <input type="text" name="uid" value="{{$key->id}}"><br>
+            <input type="hidden" name="uid" value="{{$key->id}}"><br>
             <label for="name">Name</label><br>
             <input type="text" name="i_name" value="{{$key->name}}"><br>
             <label for="desc">Quantity Description</label><br>
